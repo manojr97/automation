@@ -1,0 +1,108 @@
+mvn archetype:generate -DarchetypeGroupId=io.gatling.highcharts -DarchetypeArtifactId=gatling-highcharts-maven-archetype
+
+
+mvn archetype:generate -DarchetypeGroupId=com.qait -DarchetypeArtifactId=gatlingtesting
+mvn archetype:generate -DarchetypeGroupId=com.qait -DarchetypeArtifactId=gatlingtest
+mvn archetype:generate -DarchetypeGroupId=com.qait2 -DarchetypeArtifactId=gatling
+
+-------------------------------------------------------------------------------------------------
+
+<properties>
+<maven.compiler.source>1.8</maven.compiler.source>
+<maven.compiler.target>1.8</maven.compiler.target>
+<encoding>UTF-8</encoding>
+
+
+
+<gatling.version>3.3.1</gatling.version>
+<gatling-maven-plugin.version>3.0.5</gatling-maven-plugin.version>
+<scala-maven-plugin.version>3.3.1</scala-maven-plugin.version>
+</properties>
+
+
+
+<dependencies>
+<dependency>
+<groupId>io.gatling.highcharts</groupId>
+<artifactId>gatling-charts-highcharts</artifactId>
+<version>${gatling.version}</version>
+</dependency>
+<dependency>
+<groupId>io.gatling</groupId>
+<artifactId>gatling-app</artifactId>
+<version>${gatling.version}</version>
+</dependency>
+<dependency>
+<groupId>io.gatling</groupId>
+<artifactId>gatling-recorder</artifactId>
+<version>${gatling.version}</version>
+</dependency>
+<dependency>
+<groupId>org.scala-lang</groupId>
+<artifactId>scala-library</artifactId>
+<version>2.12.8</version>
+</dependency>
+</dependencies>
+
+
+
+<build>
+<testSourceDirectory>src/test/scala</testSourceDirectory>
+<pluginManagement>
+<plugins>
+<plugin>
+<groupId>net.alchim31.maven</groupId>
+<artifactId>scala-maven-plugin</artifactId>
+<version>${scala-maven-plugin.version}</version>
+</plugin>
+</plugins>
+</pluginManagement>
+<plugins>
+<plugin>
+<groupId>net.alchim31.maven</groupId>
+<artifactId>scala-maven-plugin</artifactId>
+<executions>
+<execution>
+<goals>
+<goal>testCompile</goal>
+</goals>
+<configuration>
+<args>
+<arg>-target:jvm-1.8</arg>
+<arg>-deprecation</arg>
+<arg>-feature</arg>
+<arg>-unchecked</arg>
+<arg>-language:implicitConversions</arg>
+<arg>-language:postfixOps</arg>
+</args>
+</configuration>
+</execution>
+</executions>
+</plugin>
+<plugin>
+<groupId>io.gatling</groupId>
+<artifactId>gatling-maven-plugin</artifactId>
+<version>${gatling-maven-plugin.version}</version>
+</plugin>
+</plugins>
+</build>
+
+
+[11:51 AM] Abhilesh Singh
+
+<?xml version="1.0" encoding="UTF-8"?><configuration> <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+<encoder>
+<pattern>%d{HH:mm:ss.SSS} [%-5level] %logger{15} - %msg%n%rEx</pattern>
+<immediateFlush>false</immediateFlush>
+</encoder>
+</appender> <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+<file>./target/classes/gatling/logback-output.log</file>
+<append>true</append>
+<encoder>
+<pattern>%d{HH:mm:ss.SSS} [%-5level] %logger{15} - %msg%n%rEx</pattern>
+</encoder>
+</appender> <logger name="io.gatling.http.ahc" level="${gatling.log.level}" />
+<logger name="io.gatling.http.engine.response" level="${gatling.log.level}" /> <root level="WARN">
+<appender-ref ref="FILE" />
+</root></configuration>
+
